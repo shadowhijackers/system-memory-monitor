@@ -8,7 +8,7 @@ from config import systemconfig as sysConfig
 '''
 def getMemoryUsages():
   
-  cmd = 'free -g | grep Mem'
+  cmd = 'free -m | grep Mem'
   output = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
   outputArr =  output.split()
   result = {"used": outputArr[2], "total": outputArr[1], "free": outputArr[3]}
@@ -20,7 +20,7 @@ def getMemoryUsages():
 '''
 def checkMemoryReachedLimit(memoryInfo):
 
-    if float(memoryInfo["free"]) < sysConfig.MEMORY_REACH_LIMIT:
+    if float(memoryInfo["free"]) < float(sysConfig.MEMORY_REACH_LIMIT):
        print("Ram Free Memory is:",memoryInfo["used"]) 
        return True  
     else:
